@@ -20,7 +20,7 @@ namespace Catalog.API.Products.DeleteProduct
 
             session.Delete(product);
 
-            session.SaveChanges();
+           await session.SaveChangesAsync(cancellationToken);
 
             return new DeleteProductResult(true);
         }
