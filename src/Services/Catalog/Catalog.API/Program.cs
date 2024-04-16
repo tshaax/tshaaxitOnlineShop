@@ -1,21 +1,34 @@
+using BuildingBlocks.Exceptions.Handler;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddCarter();
+
+var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>
 {
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    config.RegisterServicesFromAssembly(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
+builder.Services.AddValidatorsFromAssembly(assembly);
+
+builder.Services.AddCarter();
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
     
 }).UseLightweightSessions();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 // configure the HTTP request pipeline
 app.MapCarter();
+
+app.UseExceptionHandler(opt => { });
 
 app.Run();
