@@ -23,12 +23,12 @@ namespace Catalog.API.Products.UpdateProduct
                 .GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }
-    internal class UpdateProductHandlerCommand( IDocumentSession session, ILogger<UpdateProductHandlerCommand> logger)
+    internal class UpdateProductHandlerCommand( IDocumentSession session)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("UpdateProductHandlerCommand excecuted {@command}", command);
+
 
             var product = await session.LoadAsync<Product>(command.Id,cancellationToken);
 

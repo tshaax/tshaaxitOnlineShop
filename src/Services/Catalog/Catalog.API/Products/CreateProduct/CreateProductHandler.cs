@@ -15,7 +15,7 @@ namespace Catalog.API.Products.CreateProduct
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than zero");
         }
     }
-    internal class CreateProductCommandHandler (IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
+    internal class CreateProductCommandHandler (IDocumentSession session)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -23,7 +23,6 @@ namespace Catalog.API.Products.CreateProduct
             // create product entity from command object
 
             // return CreateProductResult result
-            logger.LogInformation("CreateProductCommandHandler.Handle called with {@command}", command);
 
             var product = new Product
             {
