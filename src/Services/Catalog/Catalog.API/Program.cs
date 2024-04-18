@@ -1,6 +1,6 @@
-using BuildingBlocks.Exceptions.Handler;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +23,12 @@ builder.Services.AddMarten(opts =>
     
 }).UseLightweightSessions();
 
+if(builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatalogDbInitialData>();
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
 
 var app = builder.Build();
 
@@ -31,5 +36,10 @@ var app = builder.Build();
 app.MapCarter();
 
 app.UseExceptionHandler(opt => { });
+
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
