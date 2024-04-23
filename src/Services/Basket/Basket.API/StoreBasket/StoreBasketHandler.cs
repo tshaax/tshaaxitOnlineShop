@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿
+
+using Basket.API.Data;
 
 namespace Basket.API.StoreBasket
 {
@@ -16,7 +18,7 @@ namespace Basket.API.StoreBasket
 
     }
 
-    public class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+    public class StoreBasketCommandHandler(IBasketRepository repo) : ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
@@ -25,7 +27,9 @@ namespace Basket.API.StoreBasket
             // TODO: store basket in database (use marten upsert)
             // TODO: update cache
 
-            return new StoreBasketResult("swn");
+            var response = await repo.StoreBasket(cart, cancellationToken);
+
+            return new StoreBasketResult(response.UserName);
         }
     }
 }

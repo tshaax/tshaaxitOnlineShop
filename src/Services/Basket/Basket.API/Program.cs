@@ -1,5 +1,6 @@
-using BuildingBlocks.Behaviors;
-using Carter;
+
+using Basket.API.Data;
+using BuildingBlocks.Exceptions.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,19 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
+builder.Services.AddMarten(ops =>
+{
+    ops.Connection(builder.Configuration.GetConnectionString("Database")!);
+    ops.Schema.For<ShoppingCart>().Identity(x => x.UserName);
+
+}).UseLightweightSessions();
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 app.MapCarter();
+app.UseExceptionHandler(opt => { });
 app.Run();

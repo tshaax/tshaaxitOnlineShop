@@ -1,7 +1,4 @@
-﻿using Carter;
-using Mapster;
-using MediatR;
-
+﻿
 namespace Basket.API.DeleteBasket
 {
     //public record DeleteBasketRequest(string UserName); 
@@ -13,7 +10,7 @@ namespace Basket.API.DeleteBasket
         {
             app.MapDelete("/basket/{userName}", async (string userName, ISender sender) =>
             {
-                var result = sender.Send(new DeleteBasketCommand(userName));
+                var result = await sender.Send(new DeleteBasketCommand(userName));
 
                 var response = result.Adapt<DeleteBasketResponse>();
 
@@ -24,7 +21,7 @@ namespace Basket.API.DeleteBasket
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Delete Basket By Id")
-            .WithDescription("Delete Basket By Id");
+            .WithDescription("");
 
         }
     }
