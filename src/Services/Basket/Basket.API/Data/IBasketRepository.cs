@@ -6,6 +6,6 @@
 
         Task<ShoppingCart> StoreBasket(ShoppingCart cart, CancellationToken cancellationToken);
 
-        Task<bool> DeletsBasket(string UserName, CancellationToken cancellationToken);
+        Task<bool> DeletsBasket(string userName, CancellationToken cancellationToken);
     }
 }
