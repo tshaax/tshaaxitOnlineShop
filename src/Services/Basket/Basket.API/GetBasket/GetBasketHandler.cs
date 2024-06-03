@@ -15,7 +15,7 @@ namespace Basket.API.GetBasket
              var basket = await repo.GetBasket(query.UserName, cancellationToken);
 
             return new GetBasketResult(basket);
-            ;
+            
         }
     }
 }
