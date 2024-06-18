@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿global using Ordering.Domain.Models;
+global using Ordering.Domain.ValueObjects;
+global using BuildingBlocks.CQRS;
+global using Ordering.Application.Data;
+global using Ordering.Application.Dtos;
+global using Ordering.Application.Exceptions;
 
-namespace Ordering.Application
-{
-    public class GlabalUsing
-    {
-    }
-}
+global using MediatR;
+global using Microsoft.Extensions.Logging;
+global using Ordering.Domain.Events;
