@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace Basket.API.Data
 {
+    // cache-a-side pattern
     public class CachedBasketRepository(IBasketRepository repository, IDistributedCache cache) : IBasketRepository
     {
         public async Task<bool> DeletsBasket(string userName, CancellationToken cancellationToken)
