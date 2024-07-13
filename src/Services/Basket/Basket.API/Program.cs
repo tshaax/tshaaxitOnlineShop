@@ -1,4 +1,4 @@
-
+ 
 using Basket.API.Data;
 using BuildingBlocks.Exceptions.Handler;
 using Discount.Grpc;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Distributed;
 var builder = WebApplication.CreateBuilder(args);
 
 // register container service
-var assembly = typeof(Program).Assembly;
+var assembly = typeof(Program).Assembly; 
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
 {
