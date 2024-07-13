@@ -1,5 +1,4 @@
-﻿
-namespace Basket.API.DeleteBasket
+﻿namespace Basket.API.Basket.DeleteBasket
 {
     //public record DeleteBasketRequest(string UserName); 
 
@@ -14,7 +13,7 @@ namespace Basket.API.DeleteBasket
 
                 var response = result.Adapt<DeleteBasketResponse>();
 
-               return Results.Ok(response);
+                return Results.Ok(response);
 
             }).WithName("DeleteBasketById")
             .Produces<DeleteBasketResponse>(StatusCodes.Status200OK)

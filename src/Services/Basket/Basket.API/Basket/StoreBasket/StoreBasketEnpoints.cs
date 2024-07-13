@@ -1,5 +1,4 @@
-﻿
-namespace Basket.API.StoreBasket
+﻿namespace Basket.API.Basket.StoreBasket
 {
     public record StoreBasketRequest(ShoppingCart Cart);
 
@@ -24,7 +23,7 @@ namespace Basket.API.StoreBasket
             .Produces<StoreBasketResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
-            
+
         }
     }
 }

@@ -1,20 +1,18 @@
-﻿
-
-using Basket.API.Data;
+﻿using Basket.API.Data;
 using Discount.Grpc;
 
-namespace Basket.API.StoreBasket
+namespace Basket.API.Basket.StoreBasket
 {
-    public record StoreBasketCommand(ShoppingCart Cart): ICommand<StoreBasketResult>;
+    public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
 
     public record StoreBasketResult(string UserName);
     public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
     {
-        public StoreBasketCommandValidator() 
+        public StoreBasketCommandValidator()
         {
             RuleFor(x => x.Cart).NotNull().WithMessage("Cart can not be null");
             RuleFor(x => x.Cart.UserName).NotEmpty().WithMessage("UserName is required");
-        
+
         }
 
     }
@@ -28,14 +26,14 @@ namespace Basket.API.StoreBasket
             // TODO: store basket in database (use marten upsert)
             // TODO: update cache
 
-             await DiscountPrice(cart, cancellationToken);
+            await DiscountPrice(cart, cancellationToken);
 
             var response = await repo.StoreBasket(cart, cancellationToken);
 
             return new StoreBasketResult(response.UserName);
         }
 
-        public async Task DiscountPrice(ShoppingCart cart,CancellationToken cancellationToken)
+        public async Task DiscountPrice(ShoppingCart cart, CancellationToken cancellationToken)
         {
             foreach (var item in cart.Items)
             {

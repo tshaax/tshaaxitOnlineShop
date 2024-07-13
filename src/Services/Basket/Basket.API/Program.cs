@@ -4,7 +4,7 @@ using BuildingBlocks.Exceptions.Handler;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Caching.Distributed;
+using BuildingBlocks.Messaging.MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +34,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 
+// cross-cutting services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks()
@@ -55,6 +56,10 @@ ConfigurePrimaryHttpMessageHandler(() =>
 
     return handler;
 });
+
+// Async Communication Services
+builder.Services.AddMessageBroker(builder.Configuration);
+
 
 var app = builder.Build();
 
