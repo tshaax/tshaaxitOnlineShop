@@ -1,5 +1,6 @@
 ﻿using Basket.API.Data;
 using BuildingBlocks.Messaging.Events;
+using MassTransit;
 using MassTransit.SagaStateMachine;
 
 namespace Basket.API.Basket.CheckoutBasket
@@ -17,7 +18,7 @@ namespace Basket.API.Basket.CheckoutBasket
         }
     }
 
-    public class CheckoutBasketCommandHandler(IBasketRepository repository, IPublisher publishEndpoint) : ICommandHandler<CheckoutBasketCommand, CheckoutBasketResult>
+    public class CheckoutBasketCommandHandler(IBasketRepository repository, IPublishEndpoint publishEndpoint) : ICommandHandler<CheckoutBasketCommand, CheckoutBasketResult>
     {
         public async Task<CheckoutBasketResult> Handle(CheckoutBasketCommand command, CancellationToken cancellationToken)
         {

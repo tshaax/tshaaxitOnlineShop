@@ -1,9 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using MediatR.NotificationPublishers;
-using Ordering.Application.Data;
-using Ordering.Application.Dtos;
-
-namespace Ordering.Application.Orders.Commands.CreateOrder
+﻿namespace Ordering.Application.Orders.Commands.CreateOrder
 {
     public class CreateOrderHandle(IApplicationDbContext dbContext) : ICommandHandler<CreateOrderCommand, CreateOrderResult>
     {
