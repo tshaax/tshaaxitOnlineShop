@@ -15,5 +15,8 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="Migrations\20240603225229_InitialCreate.cs" />
+    <None Include="Migrations\20240603225229_InitialCreate.Designer.cs" />
+    <None Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
   </ItemGroup>
 </Project>
