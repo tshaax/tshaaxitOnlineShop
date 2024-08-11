@@ -15,5 +15,28 @@ namespace Shopping.Web.Services
 
         [Post("/basket-service/basket/checkout")]
         Task<CheckoutBasketRequest> CheckoutBasket(CheckoutBasketRequest request);
+
+        public  async Task<ShoppingCartModel> LoadUserBasket()
+        {
+            var userName = "swn";
+            ShoppingCartModel basket;
+
+            try
+            {
+                var getBasketResponse = await GetBasket(userName);
+                basket = getBasketResponse.Cart;
+
+            }
+            catch (ApiException apiException) when (apiException.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                basket = new ShoppingCartModel
+                {
+                    Items = [],
+                    Username = userName,
+                };
+            }
+
+            return basket;
+        }
     }
 }
