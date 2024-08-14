@@ -18,6 +18,13 @@ builder.Services.AddRefitClient<IBasketService>()
         });
 
 
+builder.Services.AddRefitClient<IOrderingService>()
+        .ConfigureHttpClient(c =>
+        {
+            c.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayAddress"]!);
+        });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
